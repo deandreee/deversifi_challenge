@@ -41,11 +41,20 @@ class Portfolio {
   }
 
   getStats(price) {
-    const pnl = this.currency + this.asset * price;
+    const value = this.currency + this.asset * price;
     const currency = this.currency;
     const asset = this.asset;
 
-    return { currency, asset, pnl };
+    const pnl = value - this.initial.currency;
+
+    return { currency, asset, value, pnl };
+  }
+
+  logPnL(price) {
+    const { value, pnl } = this.getStats(price);
+    console.log(`===== PnL =====`);
+    console.log(`    Current Value: `.padEnd(40), value);
+    console.log(`    Difference (vs starting): `.padEnd(40), pnl);
   }
 }
 

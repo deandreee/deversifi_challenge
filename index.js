@@ -48,8 +48,7 @@ const goLong = close => {
   const { amount, comm } = portfolio.long(close);
   console.log(`BUY: ${ASSET} @ ${close} w/ amount ${amount} ${CURRENCY} and commission ${comm} ${CURRENCY}`);
 
-  const { pnl } = portfolio.getStats(close);
-  console.log(`PnL: ${pnl}`);
+  portfolio.logPnL(close);
 };
 
 const closeLong = close => {
@@ -63,8 +62,7 @@ const closeLong = close => {
   const { amount, comm } = portfolio.close(close);
   console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} ${ASSET} and commission ${comm} ${ASSET}`);
 
-  const { pnl } = portfolio.getStats(close);
-  console.log(`PnL: ${pnl}`);
+  portfolio.logPnL(close);
 };
 
 const smaFast = new SMA(1);
@@ -123,5 +121,5 @@ const run = async () => {
 //   }
 // };
 
-run();
-// test();
+// run();
+test();
