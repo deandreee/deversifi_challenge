@@ -29,7 +29,7 @@ class Strategy {
 
   // long only strategy
   checkAction(close) {
-    console.log(`CHECK ACTION: close: ${close} | SMA DIFF: ${this.smaFast.result - this.smaSlow.result}`);
+    console.log(`CHECK ACTION: close: ${close} | SMA DIFF: ${round4(this.smaFast.result - this.smaSlow.result)}`);
     if (this.smaFast.result > this.smaSlow.result) {
       this.goLong(close);
     } else {
