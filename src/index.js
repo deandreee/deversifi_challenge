@@ -5,11 +5,6 @@ const portfolio = new Portfolio(STARTING_CURRENCY, STARTING_ASSET, COMMISSION_PC
 const strategy = new Strategy(portfolio);
 const exchange = new Exchange(API_ROOT, PAIR);
 
-const test = async () => {
-  strategy.goLong(7200.12);
-  strategy.closeLong(7300.44);
-};
-
 const run = async () => {
   setInterval(async () => {
     const close = await exchange.getCurrentClose();
@@ -20,24 +15,9 @@ const run = async () => {
       return;
     }
 
-    // console.log(`close: ${close}`);
-    // console.log(`smaFast: ${smaFast.result}`);
-    // console.log(`smaSlow: ${smaSlow.result}`);
-
     strategy.checkAction(close);
     portfolio.logPnL(close);
   }, POLLING_INTERVAL);
 };
 
-// const runWrapped = async () => {
-//   try {
-//     await run();
-//     process.exit();
-//   } catch (err) {
-//     console.log(err);
-//     process.exit(1);
-//   }
-// };
-
 run();
-// test();
