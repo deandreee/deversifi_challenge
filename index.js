@@ -47,6 +47,9 @@ const goLong = close => {
 
   const { amount, comm } = portfolio.long(close);
   console.log(`BUY: ${ASSET} @ ${close} w/ amount ${amount} ${CURRENCY} and commission ${comm} ${CURRENCY}`);
+
+  const { pnl } = portfolio.getStats(close);
+  console.log(`PnL: ${pnl}`);
 };
 
 const closeLong = close => {
@@ -59,6 +62,9 @@ const closeLong = close => {
 
   const { amount, comm } = portfolio.close(close);
   console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} ${ASSET} and commission ${comm} ${ASSET}`);
+
+  const { pnl } = portfolio.getStats(close);
+  console.log(`PnL: ${pnl}`);
 };
 
 const smaFast = new SMA(1);
@@ -95,7 +101,7 @@ const run = async () => {
     updateIndicators(close);
 
     if (!areIndicatorsReady()) {
-      console.log("smaSlow not ready, skipping");
+      console.log("smaSlow not ready yet");
       return;
     }
 
@@ -117,5 +123,5 @@ const run = async () => {
 //   }
 // };
 
-// run();
-test();
+run();
+// test();

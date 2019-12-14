@@ -1,5 +1,9 @@
 class Portfolio {
   constructor(currency, asset, commission_pct) {
+    this.initial = {
+      currency,
+      asset
+    };
     this.currency = currency;
     this.asset = asset;
     this.commission_pct = commission_pct;
@@ -34,6 +38,14 @@ class Portfolio {
     this.trades++;
 
     return { amount, comm };
+  }
+
+  getStats(price) {
+    const pnl = this.currency + this.asset * price;
+    const currency = this.currency;
+    const asset = this.asset;
+
+    return { currency, asset, pnl };
   }
 }
 
