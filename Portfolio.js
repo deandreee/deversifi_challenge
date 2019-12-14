@@ -7,7 +7,7 @@ class Portfolio {
   }
 
   getCommission(amount) {
-    return amount * this.commission_pct;
+    return (amount * this.commission_pct) / 100;
   }
 
   long(price) {

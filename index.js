@@ -3,9 +3,12 @@ const SMA = require("./SMA");
 const { Portfolio } = require("./Portfolio");
 
 const API_ROOT = "https://api-pub.bitfinex.com/v2";
-const PAIR = "tBTCUSD";
+
+const ASSET = "BTC";
+const CURRENCY = "USD";
+
+const PAIR = `t${ASSET}${CURRENCY}`;
 const INTERVAL = 3 * 1000;
-const AMOUNT_PCT = 100;
 
 const STARTING_ASSET = 0;
 const STARTING_CURRENCY = 50000;
@@ -43,7 +46,7 @@ const goLong = close => {
   currentPosition = Positions.LONG;
 
   const { amount, comm } = portfolio.long(close);
-  console.log(`BUY: ${PAIR} @ ${close} w/ amount ${amount} and commission ${comm}`);
+  console.log(`BUY: ${ASSET} @ ${close} w/ amount ${amount} ${CURRENCY} and commission ${comm} ${CURRENCY}`);
 };
 
 const closeLong = close => {
@@ -55,7 +58,7 @@ const closeLong = close => {
   currentPosition = Positions.CLOSED;
 
   const { amount, comm } = portfolio.close(close);
-  console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} and commission ${comm}`);
+  console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} ${ASSET} and commission ${comm} ${ASSET}`);
 };
 
 const smaFast = new SMA(1);
