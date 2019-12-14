@@ -1,5 +1,6 @@
 const { fetchJSON } = require("./fetchJSON");
 const SMA = require("./SMA");
+const { Portfolio } = require("./Portfolio");
 
 const API_ROOT = "https://api-pub.bitfinex.com/v2";
 const PAIR = "tBTCUSD";
@@ -10,7 +11,7 @@ const STARTING_ASSET = 0;
 const STARTING_CURRENCY = 50000;
 const COMMISSION_PCT = 0.1;
 
-let currentCurrency = STARTING_CURRENCY;
+const portfolio = new Portfolio(STARTING_CURRENCY, STARTING_ASSET, COMMISSION_PCT);
 
 // long | closed
 const Positions = {
@@ -39,7 +40,10 @@ const goLong = close => {
     return;
   }
 
-  console.log(`BUY: ${PAIR} @ ${close} w/ amount ...`);
+  currentPosition = Positions.LONG;
+
+  const { amount, comm } = portfolio.long(close);
+  console.log(`BUY: ${PAIR} @ ${close} w/ amount ${amount} and commission ${comm}`);
 };
 
 const closeLong = close => {
@@ -48,10 +52,11 @@ const closeLong = close => {
     return;
   }
 
-  console.log(`closing long @ ${close}`);
-};
+  currentPosition = Positions.CLOSED;
 
-const logAction = () => {};
+  const { amount, comm } = portfolio.close(close);
+  console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} and commission ${comm}`);
+};
 
 const smaFast = new SMA(1);
 const smaSlow = new SMA(2);
@@ -74,6 +79,11 @@ const checkAction = close => {
   } else {
     closeLong(close);
   }
+};
+
+const test = async () => {
+  goLong(7200);
+  closeLong(7300);
 };
 
 const run = async () => {
@@ -104,4 +114,5 @@ const run = async () => {
 //   }
 // };
 
-run();
+// run();
+test();
