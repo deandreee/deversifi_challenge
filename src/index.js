@@ -8,6 +8,10 @@ const exchange = new Exchange(API_ROOT, PAIR);
 const run = async () => {
   setInterval(async () => {
     const close = await exchange.getCurrentClose();
+    if (close === null) {
+      return;
+    }
+
     strategy.updateIndicators(close);
 
     if (!strategy.areIndicatorsReady()) {

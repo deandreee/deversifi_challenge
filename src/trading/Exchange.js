@@ -13,7 +13,9 @@ class Exchange {
     if (status !== 200 && json[0] === "error") {
       const code = json[1];
       const msg = json[2];
-      throw new Error(`Error requesting candle close - ${code}: ${msg}`);
+
+      console.error(`Error requesting candle close - ${code}: ${msg}`);
+      return null;
     }
 
     const close = json[6];
