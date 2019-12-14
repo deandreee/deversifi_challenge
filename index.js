@@ -4,6 +4,12 @@ const SMA = require("./SMA");
 const API_ROOT = "https://api-pub.bitfinex.com/v2";
 const PAIR = "tBTCUSD";
 const INTERVAL = 3 * 1000;
+const AMOUNT_PCT = 100;
+
+const STARTING_ASSET = 0;
+const STARTING_CURRENCY = 50000;
+
+let currentCurrency = STARTING_CURRENCY;
 
 // long | closed
 const Positions = {
@@ -26,13 +32,16 @@ const getCurrentClose = async () => {
   return close;
 };
 
+
+
 const goLong = close => {
   if (currentPosition === Positions.LONG) {
     console.log("already long");
     return;
   }
 
-  console.log(`going long @ ${close}`);
+  currentCurrency
+  console.log(`BUY: ${PAIR} @ ${close} w/ amount ${}`);
 };
 
 const closeLong = close => {
@@ -43,6 +52,12 @@ const closeLong = close => {
 
   console.log(`closing long @ ${close}`);
 };
+
+const logAction = () => {
+
+}
+
+
 
 const smaFast = new SMA(1);
 const smaSlow = new SMA(2);
