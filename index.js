@@ -1,6 +1,7 @@
 const { fetchJSON } = require("./fetchJSON");
 const SMA = require("./SMA");
 const { Portfolio } = require("./Portfolio");
+const { round0, round4 } = require("./utils");
 
 const API_ROOT = "https://api-pub.bitfinex.com/v2";
 
@@ -46,7 +47,9 @@ const goLong = close => {
   currentPosition = Positions.LONG;
 
   const { amount, comm } = portfolio.long(close);
-  console.log(`BUY: ${ASSET} @ ${close} w/ amount ${amount} ${CURRENCY} and commission ${comm} ${CURRENCY}`);
+  console.log(
+    `BUY: ${ASSET} @ ${round0(close)} w/ amount ${round0(amount)} ${CURRENCY} and commission ${comm} ${CURRENCY}`
+  );
 
   portfolio.logPnL(close);
 };
@@ -60,7 +63,9 @@ const closeLong = close => {
   currentPosition = Positions.CLOSED;
 
   const { amount, comm } = portfolio.close(close);
-  console.log(`CLOSE: ${PAIR} @ ${close} w/ amount ${amount} ${ASSET} and commission ${comm} ${ASSET}`);
+  console.log(
+    `CLOSE: ${PAIR} @ ${round0(close)} w/ amount ${round4(amount)} ${ASSET} and commission ${round4(comm)} ${ASSET}`
+  );
 
   portfolio.logPnL(close);
 };
@@ -89,8 +94,8 @@ const checkAction = close => {
 };
 
 const test = async () => {
-  goLong(7200);
-  closeLong(7300);
+  goLong(7200.12);
+  closeLong(7300.44);
 };
 
 const run = async () => {

@@ -1,4 +1,5 @@
 // from: https://github.com/askmike/gekko/tree/develop/strategies/indicators
+// keeping the code style from original
 
 // required indicators
 // Simple Moving Average - O(1) implementation

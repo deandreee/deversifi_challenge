@@ -1,3 +1,5 @@
+const { round0 } = require("./utils");
+
 class Portfolio {
   constructor(currency, asset, commission_pct) {
     this.initial = {
@@ -53,8 +55,8 @@ class Portfolio {
   logPnL(price) {
     const { value, pnl } = this.getStats(price);
     console.log(`===== PnL =====`);
-    console.log(`    Current Value: `.padEnd(40), value);
-    console.log(`    Difference (vs starting): `.padEnd(40), pnl);
+    console.log(`    Current Portfolio Value: `.padEnd(40), round0(value));
+    console.log(`    Difference (vs starting): `.padEnd(40), round0(pnl));
   }
 }
 
