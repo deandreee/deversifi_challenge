@@ -8,6 +8,7 @@ const AMOUNT_PCT = 100;
 
 const STARTING_ASSET = 0;
 const STARTING_CURRENCY = 50000;
+const COMMISSION_PCT = 0.1;
 
 let currentCurrency = STARTING_CURRENCY;
 
@@ -32,16 +33,13 @@ const getCurrentClose = async () => {
   return close;
 };
 
-
-
 const goLong = close => {
   if (currentPosition === Positions.LONG) {
     console.log("already long");
     return;
   }
 
-  currentCurrency
-  console.log(`BUY: ${PAIR} @ ${close} w/ amount ${}`);
+  console.log(`BUY: ${PAIR} @ ${close} w/ amount ...`);
 };
 
 const closeLong = close => {
@@ -53,11 +51,7 @@ const closeLong = close => {
   console.log(`closing long @ ${close}`);
 };
 
-const logAction = () => {
-
-}
-
-
+const logAction = () => {};
 
 const smaFast = new SMA(1);
 const smaSlow = new SMA(2);
