@@ -12,6 +12,10 @@ var Indicator = function(windowLength) {
   this.sum = 0;
 };
 
+Indicator.prototype.isReady = function() {
+  return this.prices.length >= this.windowLength;
+};
+
 Indicator.prototype.update = function(price) {
   var tail = this.prices[this.age] || 0; // oldest price in window
   this.prices[this.age] = price;

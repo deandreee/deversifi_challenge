@@ -23,16 +23,34 @@ const goLong = () => {};
 
 const closeLong = () => {};
 
-const run = async () => {
-  const smaFast = new SMA(1);
-  const smaSlow = new SMA(2);
+const smaFast = new SMA(1);
+const smaSlow = new SMA(2);
 
+const updateIndicators = close => {
+  smaFast.update(close);
+  smaSlow.update(close);
+};
+
+const areIndicatorsReady = () => {
+  // no need to check smaFast, because it will be ready faster
+  return smaSlow.isReady();
+};
+
+const checkAction = () => {};
+
+const run = async () => {
   setInterval(async () => {
     const close = await getCurrentClose();
+    updateIndicators(close);
 
-    smaFast.update(close);
-    smaSlow.update(close);
-    console.log(close);
+    if (!areIndicatorsReady()) {
+      console.log("smaSlow not ready, skipping");
+      return;
+    }
+
+    console.log(`close: ${close}`);
+    console.log(`smaFast: ${smaFast.result}`);
+    console.log(`smaSlow: ${smaSlow.result}`);
   }, INTERVAL);
 };
 
