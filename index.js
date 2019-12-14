@@ -1,7 +1,6 @@
-const { fetchJSON } = require("./fetchJSON");
-const SMA = require("./SMA");
 const { Portfolio } = require("./Portfolio");
-const { round0, round4 } = require("./utils");
+const SMA = require("./indicators/SMA");
+const { fetchJSON, round0, round4 } = require("./utils");
 
 const API_ROOT = "https://api-pub.bitfinex.com/v2";
 
