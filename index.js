@@ -5,6 +5,13 @@ const API_ROOT = "https://api-pub.bitfinex.com/v2";
 const PAIR = "tBTCUSD";
 const INTERVAL = 3 * 1000;
 
+// long | closed
+const Positions = {
+  CLOSED: "CLOSED",
+  LONG: "LONG"
+};
+let currentPosition = Positions.CLOSED;
+
 // https://docs.bitfinex.com/reference#rest-public-ticker
 const getCurrentClose = async () => {
   const { status, json } = await fetchJSON(`${API_ROOT}/ticker/${PAIR}`);
@@ -19,9 +26,23 @@ const getCurrentClose = async () => {
   return close;
 };
 
-const goLong = () => {};
+const goLong = close => {
+  if (currentPosition === Positions.LONG) {
+    console.log("already long");
+    return;
+  }
 
-const closeLong = () => {};
+  console.log(`going long @ ${close}`);
+};
+
+const closeLong = close => {
+  if (currentPosition === Positions.CLOSED) {
+    console.log("already closed");
+    return;
+  }
+
+  console.log(`closing long @ ${close}`);
+};
 
 const smaFast = new SMA(1);
 const smaSlow = new SMA(2);
@@ -36,7 +57,15 @@ const areIndicatorsReady = () => {
   return smaSlow.isReady();
 };
 
-const checkAction = () => {};
+// long only strategy
+const checkAction = close => {
+  console.log(`checkAction: ${smaFast.result - smaSlow.result}`);
+  if (smaFast.result > smaSlow.result) {
+    goLong(close);
+  } else {
+    closeLong(close);
+  }
+};
 
 const run = async () => {
   setInterval(async () => {
@@ -48,9 +77,11 @@ const run = async () => {
       return;
     }
 
-    console.log(`close: ${close}`);
-    console.log(`smaFast: ${smaFast.result}`);
-    console.log(`smaSlow: ${smaSlow.result}`);
+    // console.log(`close: ${close}`);
+    // console.log(`smaFast: ${smaFast.result}`);
+    // console.log(`smaSlow: ${smaSlow.result}`);
+
+    checkAction(close);
   }, INTERVAL);
 };
 
