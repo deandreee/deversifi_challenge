@@ -39,7 +39,7 @@ class Strategy {
 
   goLong(close) {
     if (this.currentPosition === Positions.LONG) {
-      console.log("already long");
+      console.log("NO ACTION: already long");
       return;
     }
 
@@ -49,13 +49,11 @@ class Strategy {
     console.log(
       `BUY: ${ASSET} @ ${round0(close)} w/ amount ${round0(amount)} ${CURRENCY} and commission ${comm} ${CURRENCY}`
     );
-
-    this.portfolio.logPnL(close);
   }
 
   closeLong(close) {
     if (this.currentPosition === Positions.CLOSED) {
-      console.log("already closed");
+      console.log("NO ACTION: already closed");
       return;
     }
 
@@ -65,8 +63,6 @@ class Strategy {
     console.log(
       `CLOSE: ${PAIR} @ ${round0(close)} w/ amount ${round4(amount)} ${ASSET} and commission ${round4(comm)} ${ASSET}`
     );
-
-    this.portfolio.logPnL(close);
   }
 }
 

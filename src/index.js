@@ -25,6 +25,7 @@ const run = async () => {
     // console.log(`smaSlow: ${smaSlow.result}`);
 
     strategy.checkAction(close);
+    portfolio.logPnL(close);
   }, POLLING_INTERVAL);
 };
 
@@ -38,5 +39,5 @@ const run = async () => {
 //   }
 // };
 
-// run();
-test();
+run();
+// test();
